@@ -128,8 +128,9 @@ def search_places():
         if amenities:
             amenity_obj = [storage.get(Amenity, id) for id in amenities]
             i = 0
+            length = len(places)
 
-            while i < len(places):
+            while i < length:
                 place = places[i]
                 url = "http://0.0.0.0:5000/api/v1/places/{}/amenities"
                 respond = requests.get(url.format(place.id))
@@ -142,6 +143,7 @@ def search_places():
                     if a not in amenity_place:
                         places.pop(i)
                         i -= 1
+                        length -= 1
                         break
                 i += 1
         return jsonify([obj.to_dict() for obj in places])
