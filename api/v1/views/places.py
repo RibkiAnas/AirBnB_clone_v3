@@ -59,8 +59,7 @@ def create_place(id):
                 abort(404)
             json_place["city_id"] = id
             new_place = Place(**json_place)
-            storage.new(new_place)
-            storage.save()
+            new_place.save()
             return new_place.to_dict(), 201
     else:
         abort(400, description="Not a JSON")
